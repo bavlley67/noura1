@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مصوغات ومجوهرات نورا</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>مصوغات ومجوهرات نورا</h1>
+    </header>
+    <nav>
+        <a href="#home">الرئيسية</a>
+        <a href="#products">منتجاتنا</a>
+        <a href="#contact">اتصل بنا</a>
+    </nav>
+    <div class="content">
+        <section id="home">
+            <h2>مرحبًا بك في مصوغات ومجوهرات نورا</h2>
+            <p>نقدم لكم أجود التصاميم من المجوهرات الذهبية والفضية بأسعار تنافسية وجودة لا تُضاهى.</p>
+        </section>
+        <section id="products">
+            <h2>منتجاتنا</h2>
+            <div id="productContainer"></div>
+        </section>
+        <section id="contact">
+            <h2>اتصل بنا</h2>
+            <p>للاستفسار أو الطلب، يمكنك التواصل معنا عبر واتساب على الرقم: <strong>01021833393</strong>.</p>
+        </section>
+        <section class="admin-panel">
+            <h2>لوحة إضافة/تعديل المنتجات</h2>
+            <input type="file" id="productImage" accept="image/*">
+            <input type="text" id="productName" placeholder="اسم المنتج" required>
+            <input type="number" id="productWeight" placeholder="الوزن بالجرام" required>
+            <button onclick="addProduct()">إضافة المنتج</button>
+            <button onclick="openPasswordModal()">تعديل الوزن</button>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2023 مصوغات ومجوهرات نورا. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-modal-content">
+            <h3>تأكيد الهوية</h3>
+            <input type="password" id="adminPassword" placeholder="أدخل رمز التأكيد" required>
+            <button onclick="verifyPassword()">تأكيد</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

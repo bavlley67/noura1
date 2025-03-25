@@ -1,0 +1,82 @@
+const ADMIN_PASSWORD = "225588"; // رمز التأكيد الجديد
+let selectedProduct = null;
+
+function openWhatsApp(phoneNumber, productName) {
+    const message = أرغب في الاستفسار عن المنتج: ${productName};
+    const url = https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)};
+    window.open(url, '_blank');
+}
+
+function addProduct() {
+    const imageInput = document.getElementById('productImage');
+    const nameInput = document.getElementById('productName');
+    const weightInput = document.getElementById('productWeight');
+
+    if (!imageInput.files[0] || !nameInput.value || !weightInput.value) {
+        alert('يرجى تعبئة جميع الحقول!');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const productDiv = document.createElement('div');
+        productDiv.className = 'product';
+        productDiv.setAttribute('data-name', nameInput.value);
+        productDiv.innerHTML = `
+            <img src="${event.target.result}" alt="${nameInput.value}">
+            <h3>${nameInput.value}</h3>
+            <p class="weight">الوزن: ${weightInput.value} جرام</p>
+            <button onclick="openWhatsApp('01021833393', '${nameInput.value}')">اشتري الآن</button>
+            <button onclick="selectProduct('${nameInput.value}')">تعديل</button>
+        `;
+        document.getElementById('productContainer').prepend(productDiv);
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+
+    imageInput.value = '';
+    nameInput.value = '';
+    weightInput.value = '';
+}
+
+function selectProduct(productName) {
+    selectedProduct = productName;
+    openPasswordModal();
+}
+
+function openPasswordModal() {
+    document.getElementById('passwordModal').style.display = 'flex';
+}
+
+function verifyPassword() {
+    const enteredPassword = document.getElementById('adminPassword').value;
+    if (enteredPassword === ADMIN_PASSWORD) {
+        document.getElementById('passwordModal').style.display = 'none';
+        allowEditWeight();
+    } else {
+        alert('رمز التأكيد غير صحيح!');
+    }
+}
+
+function allowEditWeight() {
+    const newWeight = prompt("أدخل الوزن الجديد للمنتج:");
+    if (!newWeight || isNaN(newWeight)) {
+        alert('يرجى إدخال وزن صحيح!');
+        return;
+    }
+
+    const productElement = Array.from(document.querySelectorAll('.product')).find(
+        (product) => product.getAttribute('data-name') === selectedProduct
+    );
+    productElement.querySelector('.weight').textContent = الوزن: ${newWeight} جرام;
+
+    selectedProduct = null;
+}
+
+const productContainer = document.getElementById('productContainer');
+for (let i = 1; i <= 300; i++) {
+    const productDiv = document.createElement('div');
+    productDiv.className = 'product';
+    productDiv.setAttribute('data-name', منتج ذهبي ${i});
+    productDiv.innerHTML = `
+        <img src="https://via.placeholder.com/200x200.png?text=منتج+${i}" alt="منتج ${i}">
+        <h3>منتج ذهبي ${i
